@@ -28,7 +28,10 @@ const Footer = () => {
             <ul className="space-y-2">
               {FOOTER_LINKS.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-sm hover:text-accent transition-colors duration-200 hover:glow-accent">
+                  <Link 
+                    href={link.href} 
+                    className="text-sm hover:text-accent transition-all duration-200 ease-out hover:glow-accent transform hover:-translate-y-px"
+                  >
                     {link.label}
                   </Link>
                 </li>
@@ -47,7 +50,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.name}
-                    className="text-muted-foreground hover:text-accent transition-colors duration-200 hover:glow-accent"
+                    className="text-muted-foreground hover:text-accent transition-all duration-200 ease-out hover:glow-accent transform hover:scale-110"
                   >
                     {IconComponent && <IconComponent className="w-6 h-6" />}
                   </Link>

@@ -82,11 +82,23 @@ export default {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+        'futuristic-drift': {
+          '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)', opacity: '0.7' },
+          '25%': { transform: 'translate(3px, 5px) rotate(5deg)', opacity: '0.4' },
+          '50%': { transform: 'translate(-4px, -3px) rotate(-3deg)', opacity: '0.8' },
+          '75%': { transform: 'translate(5px, -4px) rotate(4deg)', opacity: '0.5' },
+        },
+        'futuristic-line-pulse': {
+          '0%, 100%': { opacity: '0.1' },
+          '50%': { opacity: '0.4' },
+        }
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+        'futuristic-drift': 'futuristic-drift 20s ease-in-out infinite alternate',
+        'futuristic-line-pulse': 'futuristic-line-pulse 8s ease-in-out infinite alternate',
   		}
   	}
   },

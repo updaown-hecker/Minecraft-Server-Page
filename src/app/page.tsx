@@ -1,3 +1,5 @@
+"use client"; // Keep this if it was added to fix previous issues with styled-jsx
+
 import HeroSection from '@/components/sections/hero/HeroSection';
 import FeaturesSection from '@/components/sections/features/FeaturesSection';
 import GameModesSection from '@/components/sections/gamemodes/GameModesSection';
@@ -5,18 +7,27 @@ import LoadingTipsDisplay from '@/components/sections/loading-tips/LoadingTipsDi
 import { Separator } from '@/components/ui/separator';
 
 export default function HomePage() {
+  const sectionAnimationClasses = "animate-in fade-in slide-in-from-bottom-12 duration-700 ease-out";
+
   return (
     <div className="flex flex-col">
-      <HeroSection />
-      <FeaturesSection />
-      <GameModesSection />
-      <section id="tips" className="py-16 sm:py-24 bg-background/70 backdrop-blur-md">
+      <HeroSection /> {/* HeroSection likely has its own internal animations */}
+      
+      <section id="features" className={`py-16 sm:py-24 bg-background/70 backdrop-blur-md ${sectionAnimationClasses}`}>
+        <FeaturesSection />
+      </section>
+
+      <section id="gamemodes" className={`py-16 sm:py-24 bg-background ${sectionAnimationClasses} [animation-delay:100ms]`}>
+        <GameModesSection />
+      </section>
+      
+      <section id="tips" className={`py-16 sm:py-24 bg-background/70 backdrop-blur-md ${sectionAnimationClasses} [animation-delay:200ms]`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <LoadingTipsDisplay />
         </div>
       </section>
-      {/* Placeholder for other sections like Store, Support etc. */}
-      <section id="store" className="py-16 sm:py-24 bg-background text-center">
+      
+      <section id="store" className={`py-16 sm:py-24 bg-background text-center ${sectionAnimationClasses} [animation-delay:300ms]`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-primary mb-4 glow-primary">Store</h2>
           <p className="text-muted-foreground text-xl">Our store is coming soon! Get ready for exclusive items and perks.</p>
@@ -25,8 +36,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      
       <Separator className="my-0 border-border/30"/>
-      <section id="support" className="py-16 sm:py-24 bg-background/80 backdrop-blur-sm text-center">
+      
+      <section id="support" className={`py-16 sm:py-24 bg-background/80 backdrop-blur-sm text-center ${sectionAnimationClasses} [animation-delay:400ms]`}>
          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-accent mb-4 glow-accent">Support</h2>
           <p className="text-muted-foreground text-xl">Need help? Join our Discord or check out our support channels!</p>

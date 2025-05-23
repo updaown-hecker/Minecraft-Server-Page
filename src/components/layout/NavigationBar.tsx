@@ -22,8 +22,8 @@ const NavigationBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItemClasses = "relative px-3 py-2 text-sm font-medium transition-colors hover:text-primary before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-primary before:transition-all before:duration-300 hover:before:w-full";
-  const mobileNavItemClasses = "block px-3 py-3 text-base font-medium text-foreground hover:bg-muted hover:text-primary rounded-md";
+  const navItemClasses = "relative px-3 py-2 text-sm font-medium transition-all duration-200 ease-out hover:text-primary transform hover:-translate-y-px before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-primary before:transition-all before:duration-300 hover:before:w-full";
+  const mobileNavItemClasses = "block px-3 py-3 text-base font-medium text-foreground hover:bg-muted hover:text-primary rounded-md transition-all duration-200 ease-out transform hover:-translate-y-px";
 
   const JoinModal = () => (
     <Dialog open={isJoinModalOpen} onOpenChange={setIsJoinModalOpen}>
@@ -68,7 +68,7 @@ const NavigationBar = () => {
                   href={link.href}
                   target={link.external ? '_blank' : undefined}
                   rel={link.external ? 'noopener noreferrer' : undefined}
-                  className={`${navItemClasses} ${link.disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`${navItemClasses} ${link.disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}
                   aria-disabled={link.disabled}
                   onClick={(e) => link.disabled && e.preventDefault()}
                 >
@@ -112,7 +112,7 @@ const NavigationBar = () => {
                   href={link.href}
                   target={link.external ? '_blank' : undefined}
                   rel={link.external ? 'noopener noreferrer' : undefined}
-                  className={`${mobileNavItemClasses} ${link.disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`${mobileNavItemClasses} ${link.disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}
                   aria-disabled={link.disabled}
                   onClick={(e) => {
                     if (link.disabled) e.preventDefault();

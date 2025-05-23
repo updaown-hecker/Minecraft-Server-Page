@@ -5,14 +5,14 @@ const AnimatedBackground = () => {
       {Array.from({ length: 30 }).map((_, i) => (
         <div
           key={i}
-          className="absolute rounded-full bg-accent/30 animate-pulse"
+          className="absolute rounded-full bg-accent/30 animate-futuristic-drift"
           style={{
             width: `${Math.random() * 3 + 1}px`,
             height: `${Math.random() * 3 + 1}px`,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`,
-            animationDuration: `${Math.random() * 5 + 5}s`,
+            animationDelay: `${Math.random() * 10}s`, // Increased delay diversity
+            animationDuration: `${Math.random() * 10 + 15}s`, // Slower, varied duration
           }}
         />
       ))}
@@ -21,26 +21,26 @@ const AnimatedBackground = () => {
         {Array.from({ length: 10 }).map((_, i) => (
           <div
             key={`h-line-${i}`}
-            className="absolute h-px bg-primary/50 animate-pulse"
+            className="absolute h-px bg-primary/50 animate-futuristic-line-pulse"
             style={{
               width: `${Math.random() * 50 + 25}%`,
               left: `${Math.random() * 50}%`,
               top: `${i * 10}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: '10s',
+              animationDelay: `${Math.random() * 4}s`, // Increased delay diversity
+              animationDuration: `${Math.random() * 6 + 6}s`, // Slower, varied duration for pulse
             }}
           />
         ))}
         {Array.from({ length: 10 }).map((_, i) => (
           <div
             key={`v-line-${i}`}
-            className="absolute w-px bg-accent/50 animate-pulse"
+            className="absolute w-px bg-accent/50 animate-futuristic-line-pulse"
             style={{
               height: `${Math.random() * 50 + 25}%`,
               top: `${Math.random() * 50}%`,
               left: `${i * 10}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: '10s',
+              animationDelay: `${Math.random() * 4}s`, // Increased delay diversity
+              animationDuration: `${Math.random() * 6 + 7}s`, // Slower, varied duration for pulse
             }}
           />
         ))}
