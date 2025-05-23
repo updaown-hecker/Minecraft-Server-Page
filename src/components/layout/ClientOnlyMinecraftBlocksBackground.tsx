@@ -2,42 +2,33 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import type { ComponentType } from 'react';
 import { useState, useEffect } from 'react';
 
-// Define a props interface for the component we are dynamically importing
-// This should match the props accepted by MinecraftBlocksBackground
-interface MinecraftBlocksBackgroundProps {
-  blockCount?: number;
-  spread?: number;
-  // Add any other props that MinecraftBlocksBackground might accept
-}
+// Dynamically import the MinecraftBlocksBackground component
+// This ensures it's only loaded on the client-side.
+const ActualMinecraftBlocksBackground = dynamic(
+  () => import('@/components/layout/MinecraftBlocksBackground'),
+  {
+    ssr: false, // Explicitly disable server-side rendering for this component
+    loading: () => <div data-testid="r3f-loading-placeholder" style={{ display: 'none' }} />, // Placeholder while loading, can be null or styled
+  }
+);
 
 const ClientOnlyMinecraftBlocksBackground = () => {
-  // State to hold the dynamically imported component's constructor
-  const [MountedComponent, setMountedComponent] =
-    useState<ComponentType<MinecraftBlocksBackgroundProps> | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Perform the dynamic import inside useEffect to ensure it only runs on the client
-    // after this wrapper component has mounted.
-    const DynamicR3FBackground = dynamic(
-      () => import('@/components/layout/MinecraftBlocksBackground'),
-      {
-        ssr: false,
-        loading: () => <div data-testid="r3f-loading" style={{ display: 'none' }} />, // Placeholder during load, can be null or styled
-      }
-    );
-    setMountedComponent(() => DynamicR3FBackground); // Update state with the component constructor
-  }, []); // Empty dependency array ensures this runs once on mount
+    // This effect runs only on the client, after the component mounts
+    setIsMounted(true);
+  }, []);
 
-  // If the component hasn't been loaded into state yet, render a placeholder or null
-  if (!MountedComponent) {
-    return <div data-testid="r3f-waiting-for-component" style={{ display: 'none' }} />; // Or simply return null
+  if (!isMounted) {
+    // Render nothing (or a very simple placeholder) on the server or before client mount
+    return <div data-testid="r3f-waiting-for-mount-placeholder" style={{ display: 'none' }} />;
   }
 
-  // Render the dynamically loaded component
-  return <MountedComponent />;
+  // Once mounted on the client, render the dynamically imported component
+  return <ActualMinecraftBlocksBackground />;
 };
 
 export default ClientOnlyMinecraftBlocksBackground;

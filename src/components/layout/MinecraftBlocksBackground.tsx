@@ -2,8 +2,8 @@
 "use client";
 
 import type React from 'react';
-import { useRef, useMemo, useEffect } from 'react'; // Removed useState
-import * as ReactThreeFiber from '@react-three/fiber';
+import { useRef, useMemo, useEffect } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber'; // Reverted to named import
 import * as THREE from 'three';
 
 interface BlockProps {
@@ -30,7 +30,7 @@ const Block: React.FC<BlockProps> = ({
     }
   }, []);
 
-  ReactThreeFiber.useFrame((_state, delta) => {
+  useFrame((_state, delta) => {
     if (ref.current) {
       ref.current.rotation.x += delta * rotationSpeed[0];
       ref.current.rotation.y += delta * rotationSpeed[1];
@@ -80,7 +80,7 @@ const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ b
 
   return (
     <div className="fixed inset-0 -z-60 pointer-events-none">
-      <ReactThreeFiber.Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
         <ambientLight intensity={0.6} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <directionalLight position={[-5, -5, -5]} intensity={0.5} color="blue" />
@@ -94,7 +94,7 @@ const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ b
             rotationSpeed={block.rotationSpeed}
           />
         ))}
-      </ReactThreeFiber.Canvas>
+      </Canvas>
     </div>
   );
 };
