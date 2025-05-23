@@ -1,25 +1,20 @@
 
 import type {Metadata} from 'next';
-import { Geist, Geist_Mono } from 'next/font/google'; // Corrected import
+import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import NavigationBar from '@/components/layout/NavigationBar';
 import Footer from '@/components/layout/Footer';
 import AnimatedBackground from '@/components/layout/AnimatedBackground';
-import dynamic from 'next/dynamic'; // Added for dynamic import
+import ClientOnlyMinecraftBlocksBackground from '@/components/layout/ClientOnlyMinecraftBlocksBackground'; // Changed import
 import { SERVER_NAME } from '@/lib/constants';
 
-const MinecraftBlocksBackground = dynamic(
-  () => import('@/components/layout/MinecraftBlocksBackground'),
-  { ssr: false }
-);
-
-const geistSans = Geist({ // Corrected variable name
+const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
 });
 
-const geistMono = Geist_Mono({ // Corrected variable name
+const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
@@ -38,7 +33,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
         <AnimatedBackground />
-        <MinecraftBlocksBackground /> {/* Now dynamically imported */}
+        <ClientOnlyMinecraftBlocksBackground /> {/* Use the new wrapper */}
         <div className="relative z-10 flex flex-col min-h-screen">
           <NavigationBar />
           <main className="flex-grow">
