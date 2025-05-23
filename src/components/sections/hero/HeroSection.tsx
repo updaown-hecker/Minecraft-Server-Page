@@ -1,4 +1,4 @@
-"use client";
+ "use client";
 
 import { ChevronDown } from 'lucide-react';
 import ServerStatus from './ServerStatus';
@@ -18,20 +18,20 @@ const HeroSection = () => {
       }}></div>
       
       <div className="z-10 max-w-3xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 tracking-tight animate-in fade-in slide-in-from-top-10 duration-700 ease-out">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary animate-text-shine">
             {HERO_TITLE}
           </span>
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-10 duration-700 ease-out [animation-delay:200ms]">
           {HERO_SUBTITLE}
         </p>
 
-        <div className="mb-8">
+        <div className="mb-8 animate-in fade-in duration-700 ease-out [animation-delay:400ms]">
           <ServerStatus />
         </div>
 
-        <div className="mb-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mb-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in duration-700 ease-out [animation-delay:600ms]">
           <AnimatedIPWidget />
           <Button 
             asChild 
@@ -44,7 +44,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10">
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-in fade-in duration-700 ease-out [animation-delay:800ms]">
         <Link href="#features" aria-label="Scroll to features">
           <ChevronDown className="w-10 h-10 text-muted-foreground animate-bounce hover:text-primary transition-colors duration-300 cursor-pointer hover:glow-primary" />
         </Link>

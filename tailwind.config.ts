@@ -84,14 +84,16 @@ export default {
   				}
   			},
         'futuristic-drift': {
-          '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)', opacity: '0.7' },
-          '25%': { transform: 'translate(3px, 5px) rotate(5deg)', opacity: '0.4' },
-          '50%': { transform: 'translate(-4px, -3px) rotate(-3deg)', opacity: '0.8' },
-          '75%': { transform: 'translate(5px, -4px) rotate(4deg)', opacity: '0.5' },
+          '0%': { transform: 'translate(0, 0) scale(1)', opacity: '0.1' },
+          '20%': { transform: 'translate(5px, -10px) scale(1.05)', opacity: '0.4' },
+          '40%': { transform: 'translate(-8px, 8px) scale(0.95)', opacity: '0.15' },
+          '60%': { transform: 'translate(10px, 5px) scale(1.1)', opacity: '0.5' },
+          '80%': { transform: 'translate(-5px, -8px) scale(1)', opacity: '0.25' },
+          '100%': { transform: 'translate(0, 0) scale(1)', opacity: '0.1' },
         },
         'futuristic-line-pulse': {
-          '0%, 100%': { opacity: '0.1' },
-          '50%': { opacity: '0.4' },
+          '0%, 100%': { opacity: '0.05' }, // More subtle start/end
+          '50%': { opacity: '0.25' },    // Slightly less intense peak for subtlety
         }
   		},
   		animation: {
