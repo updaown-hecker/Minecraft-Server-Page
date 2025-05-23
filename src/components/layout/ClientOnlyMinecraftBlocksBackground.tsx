@@ -2,38 +2,33 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import type { ComponentType } from 'react';
+import type { ComponentType } from 'react'; // Keep for state typing clarity
 import { useState, useEffect } from 'react';
 
-// A simple props type for the component we are dynamically importing.
-// MinecraftBlocksBackground uses optional props with defaults, so an empty object is fine here.
-type MinecraftBlocksBackgroundComponentProps = {};
-
+// Props for MinecraftBlocksBackground are optional or none, so 'any' is acceptable here for the dynamic import wrapper
 const ClientOnlyMinecraftBlocksBackground = () => {
-  const [MountedR3FBackground, setMountedR3FBackground] = useState<ComponentType<MinecraftBlocksBackgroundComponentProps> | null>(null);
+  const [MountedComponent, setMountedComponent] = useState<ComponentType<any> | null>(null);
 
   useEffect(() => {
-    // The dynamic import call is now inside useEffect.
-    // This ensures it only runs on the client, after the initial mount.
-    const DynamicComponent = dynamic(
+    // Dynamically import the component only on the client side after mount
+    const MinecraftBlocksBackgroundComponent = dynamic(
       () => import('@/components/layout/MinecraftBlocksBackground'),
       {
-        ssr: false, // Still important to prevent server-side attempts
-        loading: () => null, // Render nothing while the component is loading
+        ssr: false, // Ensure it's not rendered on the server
+        loading: () => null, // Render nothing while loading
       }
     );
-    // Store the dynamically imported component constructor in state.
-    // The function form of setState is used to ensure we are setting the component itself, not calling it.
-    setMountedR3FBackground(() => DynamicComponent);
-  }, []); // Empty dependency array ensures this runs once on mount
+    // Set the dynamically imported component to state
+    setMountedComponent(() => MinecraftBlocksBackgroundComponent);
+  }, []); // Empty dependency array ensures this effect runs only once on mount
 
-  if (!MountedR3FBackground) {
-    // If the component hasn't been loaded and set in state yet, render nothing.
+  // If the component hasn't been loaded yet, render nothing
+  if (!MountedComponent) {
     return null;
   }
 
-  // Once loaded, render the dynamic component.
-  return <MountedR3FBackground />;
+  // Render the loaded component
+  return <MountedComponent />;
 };
 
 export default ClientOnlyMinecraftBlocksBackground;
