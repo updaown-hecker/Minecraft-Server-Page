@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { DollarSign, HeartCrack, PuzzleIcon, BedDouble, CloudSun, Box, PlusCircle, ScrollText, Brain } from 'lucide-react';
+import { DollarSign, HeartCrack, PuzzleIcon, BedDouble, CloudSun, Box, PlusCircle, ScrollText, Brain, Zap } from 'lucide-react';
 
 export const SERVER_IP = "storage-attendance.gl.at.ply.gg:45831";
 export const SERVER_NAME = "Storage Attendance Hub";
