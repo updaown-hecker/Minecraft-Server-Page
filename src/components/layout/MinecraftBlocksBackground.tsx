@@ -2,7 +2,7 @@
 "use client";
 
 import type React from 'react';
-import { useRef, useMemo, useEffect, useState } from 'react';
+import { useRef, useMemo, useEffect } from 'react'; // Removed useState
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -52,15 +52,9 @@ interface MinecraftBlocksBackgroundProps {
 }
 
 const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ blockCount = 20, spread = 20 }) => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   const blocks = useMemo(() => {
-    if (!isClient) return []; // Avoid Math.random on server
-
+    // This component should only be rendered client-side via its wrapper,
+    // so Math.random() here is safe.
     const blockColors = ['#55A630', '#808080', '#8B4513', '#D2B48C', '#4682B4', '#FFD700']; // Grass, Stone, Wood, Sand, Water (Lapis), Gold
     const blockData = [];
     for (let i = 0; i < blockCount; i++) {
@@ -84,11 +78,7 @@ const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ b
       });
     }
     return blockData;
-  }, [blockCount, spread, isClient]);
-
-  if (!isClient) {
-    return null; // Or a static placeholder if needed
-  }
+  }, [blockCount, spread]);
 
   return (
     <div className="fixed inset-0 -z-60 pointer-events-none">

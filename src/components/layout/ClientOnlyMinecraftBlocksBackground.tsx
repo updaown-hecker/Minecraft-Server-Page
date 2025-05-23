@@ -2,33 +2,34 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import type { ComponentType } from 'react'; // Keep for state typing clarity
 import { useState, useEffect } from 'react';
 
-// Props for MinecraftBlocksBackground are optional or none, so 'any' is acceptable here for the dynamic import wrapper
+// Dynamically import the component at the module scope.
+// ssr: false is critical here to prevent server-side rendering attempts of the 3D component.
+const ActualMinecraftBlocksBackground = dynamic(
+  () => import('@/components/layout/MinecraftBlocksBackground'),
+  { 
+    ssr: false, 
+    loading: () => null // Optional: provide a custom loading skeleton or null
+  }
+);
+
 const ClientOnlyMinecraftBlocksBackground = () => {
-  const [MountedComponent, setMountedComponent] = useState<ComponentType<any> | null>(null);
+  const [isClientMounted, setIsClientMounted] = useState(false);
 
   useEffect(() => {
-    // Dynamically import the component only on the client side after mount
-    const MinecraftBlocksBackgroundComponent = dynamic(
-      () => import('@/components/layout/MinecraftBlocksBackground'),
-      {
-        ssr: false, // Ensure it's not rendered on the server
-        loading: () => null, // Render nothing while loading
-      }
-    );
-    // Set the dynamically imported component to state
-    setMountedComponent(() => MinecraftBlocksBackgroundComponent);
-  }, []); // Empty dependency array ensures this effect runs only once on mount
+    // This effect runs only once on the client after the component mounts.
+    setIsClientMounted(true);
+  }, []);
 
-  // If the component hasn't been loaded yet, render nothing
-  if (!MountedComponent) {
+  // If not mounted yet (i.e., still on server or client hasn't run useEffect),
+  // render nothing. This ensures ActualMinecraftBlocksBackground is only
+  // rendered on the client after this wrapper component has mounted.
+  if (!isClientMounted) {
     return null;
   }
 
-  // Render the loaded component
-  return <MountedComponent />;
+  return <ActualMinecraftBlocksBackground />;
 };
 
 export default ClientOnlyMinecraftBlocksBackground;
