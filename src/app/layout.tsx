@@ -6,8 +6,13 @@ import { Toaster } from "@/components/ui/toaster";
 import NavigationBar from '@/components/layout/NavigationBar';
 import Footer from '@/components/layout/Footer';
 import AnimatedBackground from '@/components/layout/AnimatedBackground';
-import MinecraftBlocksBackground from '@/components/layout/MinecraftBlocksBackground'; // Added import
+import dynamic from 'next/dynamic'; // Added for dynamic import
 import { SERVER_NAME } from '@/lib/constants';
+
+const MinecraftBlocksBackground = dynamic(
+  () => import('@/components/layout/MinecraftBlocksBackground'),
+  { ssr: false }
+);
 
 const geistSans = Geist({ // Corrected variable name
   variable: '--font-geist-sans',
@@ -30,10 +35,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark"> {/* Ensure dark mode is applied by default */}
+    <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
         <AnimatedBackground />
-        <MinecraftBlocksBackground /> {/* Added 3D blocks background */}
+        <MinecraftBlocksBackground /> {/* Now dynamically imported */}
         <div className="relative z-10 flex flex-col min-h-screen">
           <NavigationBar />
           <main className="flex-grow">
