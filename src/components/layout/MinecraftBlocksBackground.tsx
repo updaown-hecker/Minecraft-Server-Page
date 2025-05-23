@@ -3,48 +3,49 @@
 
 import type React from 'react';
 import { useRef, useMemo, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber'; // Reverted to named import
+// import { Canvas, useFrame } from '@react-three/fiber'; // Original problematic import
+import { Canvas } from '@react-three/fiber'; // Import only Canvas for testing
 import * as THREE from 'three';
 
-interface BlockProps {
-  position: [number, number, number];
-  color: string;
-  size?: [number, number, number];
-  rotationSpeed?: [number, number, number];
-}
+// interface BlockProps {
+//   position: [number, number, number];
+//   color: string;
+//   size?: [number, number, number];
+//   rotationSpeed?: [number, number, number];
+// }
 
-const Block: React.FC<BlockProps> = ({
-  position,
-  color,
-  size = [1, 1, 1],
-  rotationSpeed = [0.1, 0.15, 0.05]
-}) => {
-  const ref = useRef<THREE.Mesh>(null!);
+// const Block: React.FC<BlockProps> = ({
+//   position,
+//   color,
+//   size = [1, 1, 1],
+//   rotationSpeed = [0.1, 0.15, 0.05]
+// }) => {
+//   const ref = useRef<THREE.Mesh>(null!);
 
-  // Random initial rotation
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.rotation.x = Math.random() * Math.PI * 2;
-      ref.current.rotation.y = Math.random() * Math.PI * 2;
-      ref.current.rotation.z = Math.random() * Math.PI * 2;
-    }
-  }, []);
+//   // Random initial rotation
+//   useEffect(() => {
+//     if (ref.current) {
+//       ref.current.rotation.x = Math.random() * Math.PI * 2;
+//       ref.current.rotation.y = Math.random() * Math.PI * 2;
+//       ref.current.rotation.z = Math.random() * Math.PI * 2;
+//     }
+//   }, []);
 
-  useFrame((_state, delta) => {
-    if (ref.current) {
-      ref.current.rotation.x += delta * rotationSpeed[0];
-      ref.current.rotation.y += delta * rotationSpeed[1];
-      ref.current.rotation.z += delta * rotationSpeed[2];
-    }
-  });
+//   // useFrame((_state, delta) => { // Commented out useFrame usage
+//   //   if (ref.current) {
+//   //     ref.current.rotation.x += delta * rotationSpeed[0];
+//   //     ref.current.rotation.y += delta * rotationSpeed[1];
+//   //     ref.current.rotation.z += delta * rotationSpeed[2];
+//   //   }
+//   // });
 
-  return (
-    <mesh position={position} ref={ref}>
-      <boxGeometry args={size as [number, number, number]} />
-      <meshStandardMaterial color={color} roughness={0.7} metalness={0.1} />
-    </mesh>
-  );
-};
+//   return (
+//     <mesh position={position} ref={ref}>
+//       <boxGeometry args={size as [number, number, number]} />
+//       <meshStandardMaterial color={color} roughness={0.7} metalness={0.1} />
+//     </mesh>
+//   );
+// };
 
 interface MinecraftBlocksBackgroundProps {
   blockCount?: number;
@@ -57,10 +58,11 @@ const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ b
     const blockData = [];
     for (let i = 0; i < blockCount; i++) {
       blockData.push({
+        id: `block-${i}`, // Added id for key
         position: [
           (Math.random() - 0.5) * spread,
           (Math.random() - 0.5) * spread,
-          (Math.random() - 0.5) * spread - 10, // Push them further back
+          (Math.random() - 0.5) * spread - 10,
         ] as [number, number, number],
         color: blockColors[Math.floor(Math.random() * blockColors.length)],
         size: [
@@ -68,11 +70,7 @@ const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ b
           Math.random() * 0.5 + 0.8,
           Math.random() * 0.5 + 0.8
         ] as [number, number, number],
-        rotationSpeed: [
-          (Math.random() - 0.5) * 0.2,
-          (Math.random() - 0.5) * 0.2,
-          (Math.random() - 0.5) * 0.2,
-        ] as [number, number, number],
+        // rotationSpeed is no longer used as Block component is commented out
       });
     }
     return blockData;
@@ -85,14 +83,12 @@ const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ b
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <directionalLight position={[-5, -5, -5]} intensity={0.5} color="blue" />
 
-        {blocks.map((block, i) => (
-          <Block
-            key={i}
-            position={block.position}
-            color={block.color}
-            size={block.size}
-            rotationSpeed={block.rotationSpeed}
-          />
+        {blocks.map((block) => (
+          // Simplified rendering without the Block component for testing
+          <mesh key={block.id} position={block.position}>
+            <boxGeometry args={block.size as [number, number, number]} />
+            <meshStandardMaterial color={block.color} roughness={0.7} metalness={0.1} />
+          </mesh>
         ))}
       </Canvas>
     </div>
