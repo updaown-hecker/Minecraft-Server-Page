@@ -23,15 +23,15 @@ const HeroSection = () => {
             {HERO_TITLE}
           </span>
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-10 duration-700 ease-out [animation-delay:200ms]">
+        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-10 duration-700 ease-out [animation-delay:300ms]">
           {HERO_SUBTITLE}
         </p>
 
-        <div className="mb-8 animate-in fade-in duration-700 ease-out [animation-delay:400ms]">
+        <div className="mb-8 animate-in fade-in duration-700 ease-out [animation-delay:600ms]">
           <ServerStatus />
         </div>
 
-        <div className="mb-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in duration-700 ease-out [animation-delay:600ms]">
+        <div className="mb-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in duration-700 ease-out [animation-delay:900ms]">
           <AnimatedIPWidget />
           <Button 
             asChild 
@@ -44,7 +44,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-in fade-in duration-700 ease-out [animation-delay:800ms]">
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-in fade-in duration-700 ease-out [animation-delay:1200ms]">
         <Link href="#features" aria-label="Scroll to features">
           <ChevronDown className="w-10 h-10 text-muted-foreground animate-bounce hover:text-primary hover:glow-primary transition-colors duration-300 cursor-pointer" />
         </Link>
