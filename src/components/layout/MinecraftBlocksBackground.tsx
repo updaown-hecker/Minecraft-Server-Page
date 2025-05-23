@@ -3,7 +3,7 @@
 
 import type React from 'react';
 import { useRef, useMemo, useEffect } from 'react'; // Removed useState
-import { Canvas, useFrame } from '@react-three/fiber';
+import * as ReactThreeFiber from '@react-three/fiber';
 import * as THREE from 'three';
 
 interface BlockProps {
@@ -13,11 +13,11 @@ interface BlockProps {
   rotationSpeed?: [number, number, number];
 }
 
-const Block: React.FC<BlockProps> = ({ 
-  position, 
-  color, 
+const Block: React.FC<BlockProps> = ({
+  position,
+  color,
   size = [1, 1, 1],
-  rotationSpeed = [0.1, 0.15, 0.05] 
+  rotationSpeed = [0.1, 0.15, 0.05]
 }) => {
   const ref = useRef<THREE.Mesh>(null!);
 
@@ -30,7 +30,7 @@ const Block: React.FC<BlockProps> = ({
     }
   }, []);
 
-  useFrame((_state, delta) => {
+  ReactThreeFiber.useFrame((_state, delta) => {
     if (ref.current) {
       ref.current.rotation.x += delta * rotationSpeed[0];
       ref.current.rotation.y += delta * rotationSpeed[1];
@@ -53,8 +53,6 @@ interface MinecraftBlocksBackgroundProps {
 
 const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ blockCount = 20, spread = 20 }) => {
   const blocks = useMemo(() => {
-    // This component should only be rendered client-side via its wrapper,
-    // so Math.random() here is safe.
     const blockColors = ['#55A630', '#808080', '#8B4513', '#D2B48C', '#4682B4', '#FFD700']; // Grass, Stone, Wood, Sand, Water (Lapis), Gold
     const blockData = [];
     for (let i = 0; i < blockCount; i++) {
@@ -66,8 +64,8 @@ const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ b
         ] as [number, number, number],
         color: blockColors[Math.floor(Math.random() * blockColors.length)],
         size: [
-          Math.random() * 0.5 + 0.8, 
-          Math.random() * 0.5 + 0.8, 
+          Math.random() * 0.5 + 0.8,
+          Math.random() * 0.5 + 0.8,
           Math.random() * 0.5 + 0.8
         ] as [number, number, number],
         rotationSpeed: [
@@ -82,21 +80,21 @@ const MinecraftBlocksBackground: React.FC<MinecraftBlocksBackgroundProps> = ({ b
 
   return (
     <div className="fixed inset-0 -z-60 pointer-events-none">
-      <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+      <ReactThreeFiber.Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
         <ambientLight intensity={0.6} />
         <directionalLight position={[5, 5, 5]} intensity={1} />
         <directionalLight position={[-5, -5, -5]} intensity={0.5} color="blue" />
-        
+
         {blocks.map((block, i) => (
-          <Block 
-            key={i} 
-            position={block.position} 
-            color={block.color} 
+          <Block
+            key={i}
+            position={block.position}
+            color={block.color}
             size={block.size}
             rotationSpeed={block.rotationSpeed}
           />
         ))}
-      </Canvas>
+      </ReactThreeFiber.Canvas>
     </div>
   );
 };
