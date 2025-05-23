@@ -27,36 +27,73 @@ const AnimatedBackground = () => {
             height: `${Math.random() * 2.5 + 1}px`,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 15}s`, // Slightly different delay profile
-            animationDuration: `${Math.random() * 15 + 20}s`, // Slightly different duration profile
-            opacity: Math.random() * 0.3 + 0.1, // Slightly more visible
+            animationDelay: `${Math.random() * 15 + 5}s`, // Ensure some delay
+            animationDuration: `${Math.random() * 15 + 20}s`,
+            opacity: Math.random() * 0.3 + 0.1,
           }}
         />
       ))}
+
+      {/* Pulsing Energy Orbs */}
+      <div
+        className="absolute rounded-full bg-primary/40 animate-energy-pulse-primary"
+        style={{
+          width: 'clamp(100px, 20vw, 300px)',
+          height: 'clamp(100px, 20vw, 300px)',
+          left: '15%',
+          top: '20%',
+          animationDelay: '0s',
+          animationDuration: '12s',
+        }}
+      />
+      <div
+        className="absolute rounded-full bg-accent/40 animate-energy-pulse-accent"
+        style={{
+          width: 'clamp(120px, 25vw, 350px)',
+          height: 'clamp(120px, 25vw, 350px)',
+          right: '10%',
+          bottom: '15%',
+          animationDelay: '2s',
+          animationDuration: '14s',
+        }}
+      />
+      <div
+        className="absolute rounded-full bg-primary/30 animate-energy-pulse-primary"
+        style={{
+          width: 'clamp(80px, 15vw, 250px)',
+          height: 'clamp(80px, 15vw, 250px)',
+          right: '25%',
+          top: '30%',
+          animationDelay: '4s',
+          animationDuration: '16s',
+        }}
+      />
+
+
       {/* Subtle circuit lines placeholder */}
       <div className="absolute inset-0 opacity-5">
-        {Array.from({ length: 12 }).map((_, i) => ( // Increased line count slightly
+        {Array.from({ length: 12 }).map((_, i) => (
           <div
             key={`h-line-${i}`}
             className="absolute h-px bg-primary/50 animate-futuristic-line-pulse"
             style={{
-              width: `${Math.random() * 60 + 20}%`, // Varied width
+              width: `${Math.random() * 60 + 20}%`,
               left: `${Math.random() * 40}%`,
-              top: `${i * (100/12)}%`, // Distribute more evenly
+              top: `${i * (100/12)}%`,
               animationDelay: `${Math.random() * 5}s`, 
-              animationDuration: `${Math.random() * 7 + 8}s`, // Slower, more varied pulse
+              animationDuration: `${Math.random() * 7 + 8}s`,
             }}
           />
         ))}
-        {Array.from({ length: 12 }).map((_, i) => ( // Increased line count slightly
+        {Array.from({ length: 12 }).map((_, i) => (
           <div
             key={`v-line-${i}`}
             className="absolute w-px bg-accent/50 animate-futuristic-line-pulse"
             style={{
-              height: `${Math.random() * 60 + 20}%`, // Varied height
+              height: `${Math.random() * 60 + 20}%`,
               top: `${Math.random() * 40}%`,
-              left: `${i * (100/12)}%`, // Distribute more evenly
-              animationDelay: `${Math.random() * 5 + 0.5}s`, // Offset delay from horizontal
+              left: `${i * (100/12)}%`,
+              animationDelay: `${Math.random() * 5 + 0.5}s`,
               animationDuration: `${Math.random() * 7 + 9}s`, 
             }}
           />
@@ -65,9 +102,6 @@ const AnimatedBackground = () => {
       {/* Gradient overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/50 to-background"></div>
       <div className="absolute inset-0 bg-gradient-to-tl from-transparent via-primary/10 to-accent/10 opacity-75"></div>
-       {/* This is a placeholder for a more complex 3D animated background. 
-           Consider using libraries like Three.js or react-three-fiber for a full implementation.
-      */}
     </div>
   );
 };

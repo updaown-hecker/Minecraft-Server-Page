@@ -46,7 +46,7 @@ const HeroSection = () => {
 
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-in fade-in duration-700 ease-out [animation-delay:800ms]">
         <Link href="#features" aria-label="Scroll to features">
-          <ChevronDown className="w-10 h-10 text-muted-foreground animate-bounce hover:text-primary transition-colors duration-300 cursor-pointer hover:glow-primary" />
+          <ChevronDown className="w-10 h-10 text-muted-foreground animate-bounce hover:text-primary hover:glow-primary transition-colors duration-300 cursor-pointer" />
         </Link>
       </div>
       <style jsx global>{`

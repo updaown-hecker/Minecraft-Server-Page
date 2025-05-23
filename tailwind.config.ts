@@ -92,15 +92,41 @@ export default {
           '100%': { transform: 'translate(0, 0) scale(1)', opacity: '0.1' },
         },
         'futuristic-line-pulse': {
-          '0%, 100%': { opacity: '0.05' }, // More subtle start/end
-          '50%': { opacity: '0.25' },    // Slightly less intense peak for subtlety
-        }
+          '0%, 100%': { opacity: '0.05' },
+          '50%': { opacity: '0.25' },
+        },
+        'energy-pulse-primary': {
+          '0%, 100%': {
+            transform: 'scale(0.9) translate(-5%, -5%)', // Offset to keep center for non-perfect squares
+            opacity: '0.5',
+            filter: 'drop-shadow(0 0 15px hsl(var(--primary) / 0.5))',
+          },
+          '50%': {
+            transform: 'scale(1.1) translate(5%, 5%)',
+            opacity: '0.9',
+            filter: 'drop-shadow(0 0 30px hsl(var(--primary) / 0.7))',
+          },
+        },
+        'energy-pulse-accent': {
+          '0%, 100%': {
+            transform: 'scale(0.9) translate(5%, -5%)',
+            opacity: '0.5',
+            filter: 'drop-shadow(0 0 15px hsl(var(--accent) / 0.5))',
+          },
+          '50%': {
+            transform: 'scale(1.1) translate(-5%, 5%)',
+            opacity: '0.9',
+            filter: 'drop-shadow(0 0 30px hsl(var(--accent) / 0.7))',
+          },
+        },
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
         'futuristic-drift': 'futuristic-drift 20s ease-in-out infinite alternate',
         'futuristic-line-pulse': 'futuristic-line-pulse 8s ease-in-out infinite alternate',
+        'energy-pulse-primary': 'energy-pulse-primary 12s ease-in-out infinite alternate',
+        'energy-pulse-accent': 'energy-pulse-accent 14s ease-in-out infinite alternate',
   		}
   	}
   },

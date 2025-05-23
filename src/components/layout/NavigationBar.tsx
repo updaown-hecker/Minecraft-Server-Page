@@ -22,7 +22,7 @@ const NavigationBar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItemClasses = "relative px-3 py-2 text-sm font-medium transition-all duration-200 ease-out hover:text-primary transform hover:-translate-y-px before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-primary before:transition-all before:duration-300 hover:before:w-full";
+  const navItemClasses = "relative px-3 py-2 text-sm font-medium transition-all duration-200 ease-out hover:text-primary hover:glow-primary transform hover:-translate-y-px before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5 before:bg-primary before:transition-all before:duration-300 hover:before:w-full";
   const mobileNavItemClasses = "block px-3 py-3 text-base font-medium text-foreground hover:bg-muted hover:text-primary rounded-md transition-all duration-200 ease-out transform hover:-translate-y-px";
 
   const JoinModal = () => (

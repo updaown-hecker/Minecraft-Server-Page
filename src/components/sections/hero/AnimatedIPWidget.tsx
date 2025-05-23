@@ -46,12 +46,12 @@ const AnimatedIPWidget = () => {
         variant="ghost"
         size="icon"
         onClick={handleCopy}
-        className={`transition-colors duration-300 ${
+        className={`transition-colors duration-300 group ${
           copied ? 'text-green-400 hover:text-green-500' : 'text-muted-foreground hover:text-primary'
         }`}
         aria-label="Copy server IP"
       >
-        {copied ? <Check className="w-5 h-5 animate-pulse" /> : <Copy className="w-5 h-5" />}
+        {copied ? <Check className="w-5 h-5 animate-pulse text-green-400 group-hover:glow-accent" /> : <Copy className="w-5 h-5 group-hover:glow-primary" />}
       </Button>
     </div>
   );

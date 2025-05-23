@@ -92,8 +92,8 @@ const LoadingTipsDisplay = () => {
           {tipsData.tips.map((tip, index) => {
              const TipIconComponent = LOADING_TIPS_ICONS[index % LOADING_TIPS_ICONS.length] || Lightbulb;
             return (
-            <li key={index} className="flex items-start space-x-3 p-3 bg-muted/50 rounded-md border border-border hover:border-accent transition-all">
-              <TipIconComponent className="h-5 w-5 mt-1 text-accent flex-shrink-0" />
+            <li key={index} className="group flex items-start space-x-3 p-3 bg-muted/50 rounded-md border border-border hover:border-accent transition-all">
+              <TipIconComponent className="h-5 w-5 mt-1 text-accent flex-shrink-0 group-hover:glow-accent transition-all duration-200" />
               <span className="text-foreground">{tip}</span>
             </li>
           );
