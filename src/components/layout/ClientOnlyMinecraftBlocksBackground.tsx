@@ -2,34 +2,42 @@
 "use client";
 
 import dynamic from 'next/dynamic';
+import type { ComponentType } from 'react';
 import { useState, useEffect } from 'react';
 
-// Dynamically import the component at the module scope.
-// ssr: false is critical here to prevent server-side rendering attempts of the 3D component.
-const ActualMinecraftBlocksBackground = dynamic(
-  () => import('@/components/layout/MinecraftBlocksBackground'),
-  { 
-    ssr: false, 
-    loading: () => null // Optional: provide a custom loading skeleton or null
-  }
-);
+// Define a props interface for the component we are dynamically importing
+// This should match the props accepted by MinecraftBlocksBackground
+interface MinecraftBlocksBackgroundProps {
+  blockCount?: number;
+  spread?: number;
+  // Add any other props that MinecraftBlocksBackground might accept
+}
 
 const ClientOnlyMinecraftBlocksBackground = () => {
-  const [isClientMounted, setIsClientMounted] = useState(false);
+  // State to hold the dynamically imported component's constructor
+  const [MountedComponent, setMountedComponent] =
+    useState<ComponentType<MinecraftBlocksBackgroundProps> | null>(null);
 
   useEffect(() => {
-    // This effect runs only once on the client after the component mounts.
-    setIsClientMounted(true);
-  }, []);
+    // Perform the dynamic import inside useEffect to ensure it only runs on the client
+    // after this wrapper component has mounted.
+    const DynamicR3FBackground = dynamic(
+      () => import('@/components/layout/MinecraftBlocksBackground'),
+      {
+        ssr: false,
+        loading: () => <div data-testid="r3f-loading" style={{ display: 'none' }} />, // Placeholder during load, can be null or styled
+      }
+    );
+    setMountedComponent(() => DynamicR3FBackground); // Update state with the component constructor
+  }, []); // Empty dependency array ensures this runs once on mount
 
-  // If not mounted yet (i.e., still on server or client hasn't run useEffect),
-  // render nothing. This ensures ActualMinecraftBlocksBackground is only
-  // rendered on the client after this wrapper component has mounted.
-  if (!isClientMounted) {
-    return null;
+  // If the component hasn't been loaded into state yet, render a placeholder or null
+  if (!MountedComponent) {
+    return <div data-testid="r3f-waiting-for-component" style={{ display: 'none' }} />; // Or simply return null
   }
 
-  return <ActualMinecraftBlocksBackground />;
+  // Render the dynamically loaded component
+  return <MountedComponent />;
 };
 
 export default ClientOnlyMinecraftBlocksBackground;
